@@ -20,4 +20,8 @@ public class ZipCode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String zipCode;
+
+    public ZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
 }

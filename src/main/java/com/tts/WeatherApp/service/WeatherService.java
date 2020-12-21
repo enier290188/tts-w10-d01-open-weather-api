@@ -1,6 +1,7 @@
 package com.tts.WeatherApp.service;
 
 import com.tts.WeatherApp.entity.Response;
+import com.tts.WeatherApp.entity.ZipCode;
 import com.tts.WeatherApp.repository.ZipCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +21,9 @@ public class WeatherService {
         String url = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipCode + "&units=imperial&appid=" + apiKey;
         RestTemplate restTemplate = new RestTemplate();
         try {
-            return restTemplate.getForObject(url, Response.class);
+            Response response = restTemplate.getForObject(url, Response.class);
+            zipCodeRepository.save(new ZipCode(zipCode));
+            return response;
         } catch (HttpClientErrorException ex) {
             Response response = new Response();
             response.setName("error");

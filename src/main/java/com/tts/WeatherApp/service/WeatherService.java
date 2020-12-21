@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Service
 public class WeatherService {
     @Value("${api_key}")
@@ -29,5 +31,12 @@ public class WeatherService {
             response.setName("error");
             return response;
         }
+    }
+
+    public List<ZipCode> getUp10MostRecentSearches() {
+        List<ZipCode> zipCodes = (List<ZipCode>) zipCodeRepository.findAll();
+        int fromIndex = Math.max(zipCodes.size() - 10, 0);
+        int toIndex = zipCodes.size();
+        return zipCodes.subList(fromIndex, toIndex);
     }
 }

@@ -17,6 +17,7 @@ public class WeatherController {
     @GetMapping
     public String getIndex(Model model) {
         model.addAttribute("request", new Request());
+        model.addAttribute("up10MostRecentSearches", weatherService.getUp10MostRecentSearches());
         return "index";
     }
 
@@ -24,6 +25,7 @@ public class WeatherController {
     public String postIndex(Request request, Model model) {
         Response data = weatherService.getForecast(request.getZipCode());
         model.addAttribute("data", data);
+        model.addAttribute("up10MostRecentSearches", weatherService.getUp10MostRecentSearches());
         return "index";
     }
 }

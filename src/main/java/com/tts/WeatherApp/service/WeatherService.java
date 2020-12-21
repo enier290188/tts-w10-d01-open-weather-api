@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -37,6 +38,8 @@ public class WeatherService {
         List<ZipCode> zipCodes = (List<ZipCode>) zipCodeRepository.findAll();
         int fromIndex = Math.max(zipCodes.size() - 10, 0);
         int toIndex = zipCodes.size();
-        return zipCodes.subList(fromIndex, toIndex);
+        zipCodes = zipCodes.subList(fromIndex, toIndex);
+        Collections.reverse(zipCodes);
+        return zipCodes;
     }
 }

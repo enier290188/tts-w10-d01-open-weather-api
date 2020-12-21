@@ -30,6 +30,20 @@
                         <p><b>Wind:</b> <span th:text="${data.wind.get('speed')}"></span> mph</p>
                         <p><b>Conditions:</b> <span th:text="${data.weather[0].get('description')}"></span><img th:src="@{${'http://openweathermap.org/img/w/'+ data.weather[0].get('icon') + '.png'}}"></p>
                     </div>
+                    <div th:if="${up10MostRecentSearches != null}">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col"><h2>Up 10 most recent zip codes</h2></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="mostRecent:${up10MostRecentSearches}">
+                                <td th:text="${mostRecent.zipCode}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
